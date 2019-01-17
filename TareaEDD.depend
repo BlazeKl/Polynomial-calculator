@@ -1,0 +1,85 @@
+# depslib dependency file v1.0
+1498699350 source:c:\users\pipip\google drive\cbp\tareaedd\func.cpp
+	<iostream>
+	"func.h"
+
+1498607716 
+
+1499094622 source:c:\users\pipip\google drive\cbp\tareaedd\main.cpp
+	<iostream>
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<algorithm>
+	"polynomial.h"
+
+1498607100 l.h"
+
+1498693915 c:\users\pipip\google drive\cbp\tareaedd\func.h
+	"polynomial.h"
+
+1499094472 c:\users\pipip\google drive\cbp\tareaedd\include\polynomial.h
+
+1498607720 "
+
+1499109027 source:c:\users\pipip\google drive\cbp\tareaedd\src\polynomial.cpp
+	"polynomial.h"
+	<iostream>
+
+1498596916 source:/home/kliesen/Documents/TareaEDD/func.cpp
+	<iostream>
+	"func.h"
+
+1498516624 /home/kliesen/Documents/TareaEDD/func.h
+
+1498657446 source:/home/kliesen/Documents/TareaEDD/main.cpp
+	<iostream>
+	"func.h"
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	"polynomial.h"
+
+1498657309 /home/kliesen/Documents/TareaEDD/include/polynomial.h
+	"../func.h"
+
+1498657309 source:/home/kliesen/Documents/TareaEDD/src/polynomial.cpp
+	"polynomial.h"
+	<iostream>
+
+1498666728 source:z:\home\kliesen\documents\tareaedd\func.cpp
+	<iostream>
+	"func.h"
+	"polynomial.h"
+
+1498665675 z:\home\kliesen\documents\tareaedd\func.h
+	"polynomial.h"
+
+1498669560 source:z:\home\kliesen\documents\tareaedd\src\polynomial.cpp
+	"polynomial.h"
+	<iostream>
+
+1498666339 z:\home\kliesen\documents\tareaedd\include\polynomial.h
+
+1498665674 source:z:\home\kliesen\documents\tareaedd\main.cpp
+	<iostream>
+	"func.h"
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	"polynomial.h"
+
+1499093570 source:c:\users\alumnos\desktop\tareaedd\main.cpp
+	<iostream>
+	<fstream>
+	<stdio.h>
+	<stdlib.h>
+	<algorithm>
+	"polynomial.h"
+
+1499094472 c:\users\alumnos\desktop\tareaedd\include\polynomial.h
+
+1499093680 source:c:\users\alumnos\desktop\tareaedd\src\polynomial.cpp
+	"polynomial.h"
+	<iostream>
+
