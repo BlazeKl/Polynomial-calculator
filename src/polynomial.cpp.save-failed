@@ -1,0 +1,305 @@
+#include "polynomial.h"
+#include <iostream>
+
+using namespace std;
+
+/*void add_right(list_p &L, int e1,int e2){
+    list_p p,q;
+    q = L;
+    p = new(node);
+    p->coeff = e1;
+    p->exp = e2;
+    p->link = NULL;
+
+    if(q==NULL)
+        L = p;
+    else{
+        while(q->link != NULL){
+            q = q->link;
+        }
+        q->link = p;
+    }
+}
+
+void show_list(list_p x) //for debug-only
+{
+    list_p y;
+    y=x;
+    while(y!=NULL)
+    {
+        cout << y->coeff << "x^" << y->exp;
+        y=y->link;
+    }
+}*/
+
+void delete_n(list_p &L, int x,int y){
+    list_p p, q;
+    p = L;
+    q = L;
+    while(q != NULL){
+        if(p->coeff != x || p->exp != y){
+            p = q;
+            q = q->link;
+        }
+        else{
+            if(p == q){
+                L = L->link;
+                delete(q);
+                q = NULL;
+            }
+            else{
+                p->link = q->link;
+                delete(q);
+                q = NULL;
+            }
+        }
+    }
+}
+
+polynomial::polynomial()
+{
+    L=NULL;
+}
+
+polynomial::~polynomial()
+{
+
+}
+
+void polynomial::add_mono(int x, int y)
+{
+    list_p p,q;
+    q = L;
+    p = new(node);
+    p->coeff = x;
+    p->exp = y;
+    p->link = NULL;
+    if(q==NULL)
+        L = p;
+    else
+    {
+        while(q->link != NULL)
+        {
+            q = q->link;
+        }
+        q->link = p;
+    }
+}
+void polynomial::clean_pol()
+{
+    delete(L);
+    L=NULL;
+}
+
+void polynomial::add_mono_l(int x,int y)
+{
+    list_p p;
+    p = new(node);
+    p->coeff=x;
+    p->exp=y;
+    p->link=L;
+    L=p;
+}
+
+
+
+void polynomial::show_pol()
+{
+    list_p p;
+    p=L;
+    if(p==NULL)
+        cout << "Polinomio vacio!" << endl;
+    while(p!=NULL)
+    {
+        if(p==L)
+        {
+            if(p->coeff!=0)
+                cout << p->coeff << "x^" << p->exp;
+        }
+        else
+        {
+            if(p->coeff!=0)
+                cout << "+" << p->coeff << "x^" << p->exp;
+        }
+        p=p->link;
+    }
+}
+
+void polynomial::change_sign()
+{
+    list_p p;
+    p=L;
+    while(p!=NULL)
+    {
+        p->coeff*=-1;
+        p=p->link;
+    }
+}
+
+void polynomial::der()
+{
+    list_p p;
+    p=L;
+    while(p!=NULL)
+    {
+        p->coeff=p->coeff*p->exp;
+        p->exp+=-1;
+        p=p->link;
+    }
+}
+
+void polynomial::add_p(polynomial p1,polynomial p2)
+{
+    list_p p,q;
+    int exp_g=0;
+    int x,y;
+    int stat=0;
+    p=p1.L;
+    while (p!=NULL)
+    {
+        q=p2.L;
+        while (q!=NULL)
+        {
+            if(p->exp == q->exp)
+            {
+                x=p->coeff + q->coeff;
+                y=p->exp;
+                if(y>=exp_g)
+                {
+                    exp_g=y;
+                    add_mono_l(x,y);
+                }
+                else
+                    add_mono(x,y);
+            }
+            q=q->link;
+        }
+        p=p->link;
+    }
+    p=p1.L;
+    q=L;
+    if(q==NULL)
+    {
+        while(p!=NULL)
+        {
+            x=p->coeff;
+            y=p->exp;
+            add_mono_l(x,y);
+        }
+    }
+    else
+    {
+        while(p!=NULL)
+        {
+            while(q!=NULL)
+            {
+                if(p->exp == q->exp)
+                    stat=1;
+                q=q->link;
+            }
+            q=L;
+            if(stat==0)
+            {
+                x=p->coeff;
+                y=p->exp;
+                if(y>=exp_g)
+                {
+                    exp_g=y;
+                    add_mono_l(x,y);
+                }
+                else
+                    add_mono(x,y);
+            }
+            p=p->link;
+            stat=0;
+        }
+    }
+    p=p2.L;
+    q=L;
+    if(q==NULL)
+    {
+        while(p!=NULL)
+        {
+            x=p->coeff;
+            y=p->exp;
+            add_mono_l(x,y);
+        }
+    }
+    else
+    {
+        while(p!=NULL)
+        {
+            while(q!=NULL)
+            {
+                if(p->exp == q->exp)
+                    stat=1;
+                q=q->link;
+            }
+            q=L;
+            if(stat==0)
+            {
+                x=p->coeff;
+                y=p->exp;
+                if(y>=exp_g)
+                {
+                    exp_g=y;
+                    add_mono_l(x,y);
+                }
+                else
+                    add_mono(x,y);
+            }
+            p=p->link;
+            stat=0;
+        }
+    }
+}
+
+void polynomial::mult_p(polynomial p1,polynomial p2)
+{
+    polynomial aux;
+    list_p p=NULL,q=NULL;
+    int x,y;
+    p=p1.L;
+    q=p2.L;
+    while(p!=NULL)
+    {
+        q=p2.L;
+        while(q!=NULL)
+        {
+            x=p->coeff*q->coeff;
+            y=p->exp+q->exp;
+            aux.add_mono(x,y);
+            q=q->link;
+        }
+        p=p->link;
+    }
+    p=aux.L;
+    q=aux.L;
+    while(p!=NULL)
+    {
+        q=aux.L;
+        while(q!=NULL)
+        {
+            cout << "patata";
+            if(p==q)
+            {
+                q=q->link;
+            }
+            if(p->exp == q->exp)
+            {
+                p->coeff+=q->coeff;
+                delete_n(aux.L,q->coeff,q->exp);
+                //p=aux.L;
+                //q=aux.L;
+            }
+            q=q->link;
+        }
+        p=p->link;
+    }
+    L=aux.L;
+}
+
+void polynomial::div_p(polynomial p1,polynomial p2)
+{
+
+}
